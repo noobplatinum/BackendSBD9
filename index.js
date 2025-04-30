@@ -41,7 +41,27 @@ app.use('/transaction', require('./src/routes/transaction.route'));
 app.get('/', (req, res) => {
     res.send('Hello World');
   });
-  
+
+  app.get('/test-db', async (req, res) => {
+    try {
+        const db = require('./src/database/pg.database');
+        const result = await db.query('SELECT NOW()');
+        res.json({
+            success: true,
+            message: 'Database connected successfully',
+            timestamp: result.rows[0].now,
+            database: 'Neon PostgreSQL'
+        });
+    } catch (error) {
+        console.error('Database connection test failed:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Database connection failed',
+            error: error.message
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     }
