@@ -13,6 +13,7 @@ const corsOptions = {
     
         const allowedOrigins = [
             "https://frontend-sbd-9.vercel.app",
+            "frontend-sbd-9-fy2nrbziy-noobplatinums-projects.vercel.app",
             "https://os.netlabdte.com",
             "http://localhost:3000",
             "http://localhost:8080",
