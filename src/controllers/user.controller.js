@@ -1,22 +1,12 @@
 const userRepository = require('../repositories/user.repository');
 const baseResponse = require('../utils/baseResponse.util');
 const bcrypt = require('bcryptjs');
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const PASSWORD_REGEX = /^(?=.*[0-9])(?=.*[!@#$%^&*.,?:;'"\-_+=()[\]{}|\\/<>~`])[A-Za-z0-9!@#$%^&*.,?:;'"\-_+=()[\]{}|\\/<>~`]{8,}$/
 const SALT_ROUNDS = 10; // Salt rounds berguna untuk menentukan seberapa banyak proses enkripsi password yang akan dilakukan bcrypt
 
 exports.registerUser = async (req, res) => {
     if (!req.query.email || !req.query.password || !req.query.name) {
         return baseResponse(res, false, 400, 'Email, password, and name are required', null);
     } 
-
-    if(!EMAIL_REGEX.test(req.query.email)) {
-        return baseResponse(res, false, 400, 'Invalid email format', null);
-    }
-
-    if(!PASSWORD_REGEX.test(req.query.password)) {
-        return baseResponse(res, false, 400, 'Password min 8 char, ada 1 angka, dan 1 karakter khusus', null);
-    }
 
     try {
         const existingUser = await userRepository.getUserByEmail(req.query.email);
@@ -87,13 +77,6 @@ exports.updateUser = async (req, res) => {
     console.log('Update User - Request Body:', userData);
     if (!userData || !userData.id || !userData.name || !userData.email || !userData.password) {
         return baseResponse(res, false, 400, 'ID, name, email, and password are required');
-    }
-    if(!EMAIL_REGEX.test(userData.email)) {
-        return baseResponse(res, false, 400, 'Invalid email format', null);
-    }
-
-    if(!PASSWORD_REGEX.test(userData.password)) {
-        return baseResponse(res, false, 400, 'Password min 8 char, ada 1 angka, dan 1 karakter khusus', null);
     }
     
     try {
