@@ -12,6 +12,7 @@ const corsOptions = {
         }
     
         const allowedOrigins = [
+            "frontend-sbd-9.vercel.app",
             "https://os.netlabdte.com",
             "http://localhost:3000",
             "http://localhost:8080",
@@ -21,15 +22,14 @@ const corsOptions = {
         ];
         
         if (allowedOrigins.includes(origin)) {
-            callback(null, true); // Allow
+            callback(null, true);
         } else {
-            callback(new Error(`Origin ${origin} not allowed by CORS`)); // Deny
+            callback(new Error(`Origin ${origin} not allowed by CORS`)); 
         }
     },
     methods: ["GET", "POST", "PUT", "DELETE"],
 };
 
-// Gunakan middleware CORS
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

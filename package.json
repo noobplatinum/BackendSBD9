@@ -8,7 +8,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build": "echo 'Build Complete'",
+    "vercel-build": "echo 'Vercel Build Complete'"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
